@@ -9,13 +9,15 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.enableVersioning({
-    type: VersioningType.URI
+    type: VersioningType.URI,
   });
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidUnknownValues: true,
-    transform: true
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidUnknownValues: true,
+      transform: true,
+    })
+  );
 
   app.enableCors({
     origin: '*',
@@ -32,6 +34,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
-  await app.listen(5000);
+  await app.listen(2000);
 }
 bootstrap();
