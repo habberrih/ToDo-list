@@ -2,8 +2,9 @@ module.exports = {
     apps: [
         {
             name: 'Todo API',
-            script: 'dist/src/main.js',
+            script: 'dist/main.js',
             args: 'start',
+            watch: true,
             env_local: {
                 APP_ENV: 'local' // APP_ENV=local
             },
@@ -15,4 +16,4 @@ module.exports = {
             }
         }
     ]
-}
+} 
