@@ -16,8 +16,12 @@ export class TodoService {
     return await this.prismaService.todo.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  async findOne(id: number) {
+    return await this.prismaService.todo.findUnique({
+      where: {
+        id: id
+      }
+    });
   }
 
   update(id: number, updateTodoDto: UpdateTodoDto) {
