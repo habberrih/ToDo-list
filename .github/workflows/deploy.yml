@@ -34,10 +34,10 @@ jobs:
           echo PATH=${{ secrets.PATH }} >> .env
 
       - name: Run docker
-        run: docker compose up -d
+        run: cd ToDo-list && docker compose up -d
 
       - name: Add migrations
-        run: npx prisma migrate deploy
+        run: cd ToDo-list && npx prisma migrate deploy
 
       - name: Deploy
-        run: pm2 start ecosystem.config.js
+        run: cd ToDo-list && pm2 start ecosystem.config.js
