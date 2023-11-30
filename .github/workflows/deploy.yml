@@ -17,5 +17,7 @@ jobs:
               port: ${{ secrets.PORT }}
               script: |
                 cd /home/${{ secrets.USER }}/ToDo-list
+                export NVM_DIR=~/.nvm
+                source ~/.nvm/nvm.sh
                 git pull && npm ci && npm run build && docker compose up -d && npx prisma migrate deploy && pm2 start ecosystem.config.js
      
