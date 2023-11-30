@@ -33,11 +33,14 @@ jobs:
           echo HOST=${{ secrets.HOST }} >> .env
           echo PATH=${{ secrets.PATH }} >> .env
 
-      - name: Run docker
-        run: cd ToDo-list && docker compose up -d
 
-      - name: Add migrations
-        run: cd ToDo-list && npx prisma migrate deploy
+        run: pwd
 
-      - name: Deploy
-        run: cd ToDo-list && pm2 start ecosystem.config.js
+      # - name: Run docker
+      #   run: cd ToDo-list && docker compose up -d
+
+      # - name: Add migrations
+      #   run: cd ToDo-list && npx prisma migrate deploy
+
+      # - name: Deploy
+      #   run: cd ToDo-list && pm2 start ecosystem.config.js
