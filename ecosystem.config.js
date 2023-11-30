@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'Gate API',
-      script: 'dist/src/main.js',
+      script: 'dist/main.js',
       args: 'start',
       env_local: {
         APP_ENV: 'local' // APP_ENV=local
