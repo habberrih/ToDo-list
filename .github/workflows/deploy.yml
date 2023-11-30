@@ -1,45 +1,45 @@
-# name: Deploy
-# on:
-#   push:
-#     branches: [master]
+name: Deploy
+on:
+  push:
+    branches: [master]
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-#       - name: Setup SSH
-#         run: |
-#           mkdir -p ~/.ssh/
-#           echo "$SSH_PRIVATE_KEY" > ./deploy.key
-#           sudo chmod 600 ./deploy.key
-#           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-#           ssh ${{secrets.USER}}@{{secrets.HOST}} "cd project && sh ./update.sh"
-#           pwd
-#         shell: bash
-#         env:
-#           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-#           SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ./deploy.key
+          sudo chmod 600 ./deploy.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh ${{secrets.USER}}@${{secrets.HOST}} "pwd && cd project && sh ./update.sh"
+          pwd
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
 
-#       # (optional - only needed if your config uses environment variables)
-#       - name: Create env file
-#         run: |
-#           touch .env
-#           echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
-#           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-#           echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-#           echo PORT=${{ secrets.PORT }} >> .env
-#           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
-#           echo USER=${{ secrets.USER }} >> .env
-#           echo HOST=${{ secrets.HOST }} >> .env
-#           echo PATH=${{ secrets.PATH }} >> .env
+    #   # (optional - only needed if your config uses environment variables)
+    #   - name: Create env file
+    #     run: |
+    #       touch .env
+    #       echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+    #       echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+    #       echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+    #       echo PORT=${{ secrets.PORT }} >> .env
+    #       echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env
+    #       echo USER=${{ secrets.USER }} >> .env
+    #       echo HOST=${{ secrets.HOST }} >> .env
+    #       echo PATH=${{ secrets.PATH }} >> .env
 
-#       - name: Run docker
-#         run: pwd
+    #   - name: Run docker
+    #     run: pwd
 
-#       - name: Add migrations
-#         run: cd ToDo-list && npx prisma migrate deploy
+    #   - name: Add migrations
+    #     run: cd ToDo-list && npx prisma migrate deploy
 
-#       - name: Deploy
-#         run: cd ToDo-list && pm2 start ecosystem.config.js
+    #   - name: Deploy
+    #     run: cd ToDo-list && pm2 start ecosystem.config.js
