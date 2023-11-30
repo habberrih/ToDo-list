@@ -17,5 +17,5 @@ jobs:
               port: ${{ secrets.PORT }}
               script: |
                 cd /home/${{ secrets.USER }}/ToDo-list
-                git pull && npm ci && cp .env.example .env && npm run build && docker compose up -d && npx prisma migrate deploy && pm2 start ecosystem.config.js
+                git pull && npm ci && npm run build && docker compose up -d && npx prisma migrate deploy && pm2 start ecosystem.config.js
      
