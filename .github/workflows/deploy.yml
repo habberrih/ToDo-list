@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup SSH
         run: |
@@ -33,10 +33,11 @@ jobs:
           echo HOST=${{ secrets.HOST }} >> .env
           echo PATH=${{ secrets.PATH }} >> .env
 
-      - name: Install PM2
-        run: npm i pm2 -g
+      - name: Run docker
+        run: docker compose up -d
+
+      - name: Add migrations
+        run: npx prisma migrate deploy
 
       - name: Deploy
-        run: env $(cat .env | grep -v \"#\" | xargs) pm2 deploy ecosystem.config.js staging
-        # Or alternately, put this deploy script in your package.json's scripts and run it using yarn/npm:
-        # run: yarn deploy
+        run: pm2 start ecosystem.config.js
