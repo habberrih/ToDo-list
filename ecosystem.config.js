@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'Gate API',
+      name: 'ToDo API',
       script: 'dist/main.js',
       args: 'start',
       env_local: {
